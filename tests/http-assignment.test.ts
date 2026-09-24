@@ -58,3 +58,10 @@ describe("assignment API", () => {
     ]);
   });
 });
+
+describe("members API (review finding)", () => {
+  it("refuses a user who is not a Member of the workspace", async () => {
+    const res = await call("GET", "/api/workspaces/design/members", "dao");
+    expect(res.status).toBe(403);
+  });
+});

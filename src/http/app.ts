@@ -72,9 +72,9 @@ const routes: Route[] = [
     json: updateTaskStatus(store, actorId, params.taskId, body.status as Status),
   })),
 
-  route("GET", "/api/workspaces/:workspaceId/members", ({ store, params }) => ({
+  route("GET", "/api/workspaces/:workspaceId/members", ({ store, actorId, params }) => ({
     status: 200,
-    json: listMembers(store, params.workspaceId),
+    json: listMembers(store, actorId, params.workspaceId),
   })),
 
   route("GET", "/api/workspaces/:workspaceId/my-tasks", ({ store, actorId, params }) => ({

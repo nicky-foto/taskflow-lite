@@ -1,5 +1,7 @@
 import type { Role } from "../domain/types.js";
 import type { Store } from "../store/memory-store.js";
+import { ForbiddenError } from "./errors.js";
+import { membershipOf } from "./task-service.js";
 
 export interface MemberView {
   id: string;
@@ -7,8 +9,9 @@ export interface MemberView {
   role: Role;
 }
 
-/** The Members of a workspace, for the assignee picker. */
-export function listMembers(store: Store, workspaceId: string): MemberView[] {
+/** The Members of a workspace, for the assignee picker. Only Members of that workspace may see them. */
+export function listMembers(store: Store, actorId: string, workspaceId: string): MemberView[] {
+  if (!membershipOf(store, actorId, workspaceId)) throw new ForbiddenError();
   return store.memberships
     .filter((m) => m.workspaceId === workspaceId)
     .map((m) => ({
