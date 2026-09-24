@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TaskFlow Lite</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>TaskFlow Lite</h1>
+      <div class="pickers">
+        <label>Acting as <select id="actor"></select></label>
+        <label>Workspace <select id="workspace"></select></label>
+      </div>
+    </header>
+
+    <main>
+      <p id="error" role="alert" hidden></p>
+
+      <section aria-labelledby="tasks-heading">
+        <h2 id="tasks-heading">Tasks</h2>
+        <form id="new-task">
+          <label>New task <input name="title" autocomplete="off" /></label>
+          <button type="submit">Add task</button>
+        </form>
+        <ul id="tasks" aria-label="Tasks"></ul>
+        <p id="empty" hidden>No tasks yet.</p>
+      </section>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

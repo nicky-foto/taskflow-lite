@@ -1,0 +1,3 @@
+# Keep LF everywhere so hooks and scripts behave the same on Windows, macOS and Linux
+* text=auto eol=lf
+*.png binary
