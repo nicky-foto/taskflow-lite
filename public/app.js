@@ -2,7 +2,13 @@
 // Every request sends `x-user-id` = the person picked in "Acting as" (a workshop shortcut, not auth).
 
 const $ = (sel) => document.querySelector(sel);
-const state = { actorId: "ann", workspaceId: null };
+const state = { actorId: "ann", workspaceId: null, members: [], myTasksOnly: false };
+
+const canAssign = () => {
+  const me = state.members.find((m) => m.id === state.actorId);
+  return me?.role === "lead" || me?.role === "admin";
+};
+const nameOf = (userId) => state.members.find((m) => m.id === userId)?.name ?? userId;
 
 async function api(method, path, body) {
   const res = await fetch(path, {
@@ -69,7 +75,26 @@ function renderTask(task) {
   del.setAttribute("aria-label", `Delete ${task.title}`);
   del.addEventListener("click", () => run(() => api("DELETE", `/api/tasks/${task.id}`)));
 
-  li.append(title, id, status, del);
+  let assignee;
+  if (canAssign()) {
+    assignee = document.createElement("select");
+    assignee.setAttribute("aria-label", `Assignee of ${task.title}`);
+    assignee.append(option("", "Unassigned", task.assigneeId === null));
+    for (const m of state.members) assignee.append(option(m.id, m.name, m.id === task.assigneeId));
+    assignee.addEventListener("change", () =>
+      run(() =>
+        assignee.value === ""
+          ? api("DELETE", `/api/tasks/${task.id}/assignee`)
+          : api("PUT", `/api/tasks/${task.id}/assignee`, { assigneeId: assignee.value }),
+      ),
+    );
+  } else {
+    assignee = document.createElement("span");
+    assignee.className = "assignee";
+    assignee.textContent = task.assigneeId ? `Assignee: ${nameOf(task.assigneeId)}` : "Unassigned";
+  }
+
+  li.append(title, id, assignee, status, del);
   return li;
 }
 
@@ -79,7 +104,9 @@ async function loadTasks() {
     $("#empty").hidden = false;
     return;
   }
-  const tasks = await api("GET", `/api/workspaces/${state.workspaceId}/tasks`);
+  state.members = await api("GET", `/api/workspaces/${state.workspaceId}/members`);
+  const path = state.myTasksOnly ? "my-tasks" : "tasks";
+  const tasks = await api("GET", `/api/workspaces/${state.workspaceId}/${path}`);
   $("#tasks").replaceChildren(...tasks.map(renderTask));
   $("#empty").hidden = tasks.length > 0;
 }
@@ -103,6 +130,11 @@ $("#actor").addEventListener("change", async (e) => {
 
 $("#workspace").addEventListener("change", (e) => {
   state.workspaceId = e.target.value;
+  run(async () => {});
+});
+
+$("#my-tasks").addEventListener("change", (e) => {
+  state.myTasksOnly = e.target.checked;
   run(async () => {});
 });
 

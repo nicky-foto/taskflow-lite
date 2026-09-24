@@ -5,9 +5,9 @@ whose Assignee is themselves. A Member of two workspaces never sees the other wo
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] My tasks returns only tasks in that workspace assigned to the actor
-- [ ] A Member of two workspaces sees only the current workspace's tasks
-- [ ] A non-member asking for My tasks of a workspace → ForbiddenError / 403
-- [ ] A "My tasks" checkbox in the UI switches the list
+- [x] My tasks returns only tasks in that workspace assigned to the actor
+- [x] A Member of two workspaces sees only the current workspace's tasks
+- [x] A non-member asking for My tasks of a workspace → ForbiddenError / 403
+- [x] A "My tasks" checkbox in the UI switches the list

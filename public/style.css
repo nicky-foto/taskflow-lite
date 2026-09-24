@@ -35,3 +35,5 @@ li {
 li .title { flex: 1; min-width: 10rem; }
 li .id { color: #6b7a74; font-size: 0.8rem; }
 #error { background: #fdecea; color: #8a1c12; padding: 0.5rem 0.75rem; border-radius: 6px; }
+.filter { display: inline-flex; gap: 0.4rem; align-items: center; margin-bottom: 0.75rem; }
+li .assignee { color: #3d4a45; font-size: 0.9rem; }

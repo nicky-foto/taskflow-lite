@@ -12,6 +12,8 @@ import {
   ValidationError,
 } from "../services/task-service.js";
 import type { Status } from "../domain/types.js";
+import { assignTask, listMyTasks, unassignTask } from "../services/assignment-service.js";
+import { listMembers } from "../services/workspace-service.js";
 
 const PUBLIC_DIR = fileURLToPath(new URL("../../public/", import.meta.url));
 const STATIC_FILES: Record<string, { file: string; type: string }> = {
@@ -68,6 +70,26 @@ const routes: Route[] = [
   route("PATCH", "/api/tasks/:taskId", ({ store, actorId, params, body }) => ({
     status: 200,
     json: updateTaskStatus(store, actorId, params.taskId, body.status as Status),
+  })),
+
+  route("GET", "/api/workspaces/:workspaceId/members", ({ store, params }) => ({
+    status: 200,
+    json: listMembers(store, params.workspaceId),
+  })),
+
+  route("GET", "/api/workspaces/:workspaceId/my-tasks", ({ store, actorId, params }) => ({
+    status: 200,
+    json: listMyTasks(store, actorId, params.workspaceId),
+  })),
+
+  route("PUT", "/api/tasks/:taskId/assignee", ({ store, actorId, params, body }) => ({
+    status: 200,
+    json: assignTask(store, actorId, params.taskId, String(body.assigneeId ?? "")),
+  })),
+
+  route("DELETE", "/api/tasks/:taskId/assignee", ({ store, actorId, params }) => ({
+    status: 200,
+    json: unassignTask(store, actorId, params.taskId),
   })),
 
   route("DELETE", "/api/tasks/:taskId", ({ store, actorId, params }) => {

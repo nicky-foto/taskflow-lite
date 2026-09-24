@@ -6,12 +6,12 @@ and the list shows the Assignee. Re-assigning replaces the Assignee. Each Assign
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] A Lead assigns a task to a Member of the same workspace; the task shows that Assignee
-- [ ] Re-assigning records `previousAssigneeId` in the Activity
-- [ ] An Admin can assign like a Lead
-- [ ] A plain Member is refused (ForbiddenError / 403); task and Activity unchanged
-- [ ] A Lead of another workspace is refused (ForbiddenError / 403); task and Activity unchanged
-- [ ] Unknown task → NotFoundError / 404
-- [ ] The UI shows an "Assignee of <title>" picker to Leads and Admins, and the Assignee's name to everyone else
+- [x] A Lead assigns a task to a Member of the same workspace; the task shows that Assignee
+- [x] Re-assigning records `previousAssigneeId` in the Activity
+- [x] An Admin can assign like a Lead
+- [x] A plain Member is refused (ForbiddenError / 403); task and Activity unchanged
+- [x] A Lead of another workspace is refused (ForbiddenError / 403); task and Activity unchanged
+- [x] Unknown task → NotFoundError / 404
+- [x] The UI shows an "Assignee of <title>" picker to Leads and Admins, and the Assignee's name to everyone else

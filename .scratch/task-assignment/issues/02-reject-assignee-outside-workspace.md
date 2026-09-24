@@ -5,8 +5,8 @@ the Assignment is rejected with a clear message and nothing changes. The UI show
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Assignee not a Member of the task's workspace → ValidationError / 400
-- [ ] Task and Activity unchanged after the rejection
-- [ ] The error message is shown in the UI's alert area
+- [x] Assignee not a Member of the task's workspace → ValidationError / 400
+- [x] Task and Activity unchanged after the rejection
+- [x] The error message is shown in the UI's alert area

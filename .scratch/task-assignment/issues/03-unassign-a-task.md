@@ -5,9 +5,9 @@ recorded as Activity `task.unassigned` with the previous Assignee. Same permissi
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] A Lead unassigns; `assigneeId` becomes null
-- [ ] Activity `task.unassigned` with `meta.previousAssigneeId`
-- [ ] A plain Member is refused (ForbiddenError / 403); nothing changes
-- [ ] Choosing "Unassigned" in the UI picker unassigns the task
+- [x] A Lead unassigns; `assigneeId` becomes null
+- [x] Activity `task.unassigned` with `meta.previousAssigneeId`
+- [x] A plain Member is refused (ForbiddenError / 403); nothing changes
+- [x] Choosing "Unassigned" in the UI picker unassigns the task
