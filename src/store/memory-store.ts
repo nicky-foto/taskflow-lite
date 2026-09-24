@@ -7,6 +7,8 @@ export interface Store {
   memberships: Membership[];
   tasks: Task[];
   activity: ActivityEntry[];
+  /** Next number for a task id. Only ever goes up, so an id is never reused (see ADR-0003). */
+  nextTaskNumber: number;
 }
 
 export function createStore(seed: Partial<Store> = {}): Store {
@@ -16,5 +18,6 @@ export function createStore(seed: Partial<Store> = {}): Store {
     memberships: seed.memberships ?? [],
     tasks: seed.tasks ?? [],
     activity: seed.activity ?? [],
+    nextTaskNumber: seed.nextTaskNumber ?? 1,
   };
 }

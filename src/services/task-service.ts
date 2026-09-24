@@ -36,7 +36,7 @@ export function createTask(
   if (title === "") throw new ValidationError("title must not be empty");
 
   const task: Task = {
-    id: `t${store.tasks.length + 1}`,
+    id: `t${store.nextTaskNumber++}`,
     workspaceId,
     title,
     status: "todo",
